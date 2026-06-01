@@ -1,2 +1,2 @@
-curl -b cookies.txt -X PUT 'http://localhost:5000/customer/auth/review/1?review=Great%20book'
-{"message":"Review successfully added/updated","book":{"author":"Chinua Achebe","title":"Things Fall Apart","reviews":{"denys1":"Great book"}}}
+curl -sS -b cookies.txt -X PUT http://localhost:5000/customer/auth/review/1 -H 'Content-Type: application/json' -d '{"review":"Great book"}'
+{"message":"Review successfully added/updated","book":{"author":"Chinua Achebe","title":"Things Fall Apart","reviews":{"denys1780344501":"Great book"}}}
