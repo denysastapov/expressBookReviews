@@ -1,10 +1,10 @@
 const express = require('express');
 const axios = require('axios');
-const books = require("./booksdb.js");
+const books = require('./booksdb.js');
 const general = express.Router();
 
-const isValid = require("./auth_users.js").isValid;
-const users = require("./auth_users.js").users;
+const isValid = require('./auth_users.js').isValid;
+const users = require('./auth_users.js').users;
 
 // Helper route for Axios-based tasks
 general.get('/booksdb', function (req, res) {
@@ -59,7 +59,9 @@ general.get('/author/:author', async function (req, res) {
       return res.status(200).json(filteredBooks);
     }
 
-    return res.status(404).json({ message: 'No books found for this author.' });
+    return res.status(404).json({
+      message: 'No books found for this author.',
+    });
   } catch (error) {
     return res.status(500).json({ message: 'Error fetching books by author' });
   }
@@ -84,7 +86,9 @@ general.get('/title/:title', async function (req, res) {
       return res.status(200).json(filteredBooks);
     }
 
-    return res.status(404).json({ message: 'No books found with this title.' });
+    return res.status(404).json({
+      message: 'No books found with this title.',
+    });
   } catch (error) {
     return res.status(500).json({ message: 'Error fetching books by title' });
   }
@@ -99,7 +103,9 @@ general.get('/review/:isbn', function (req, res) {
     return res.status(200).json(book.reviews);
   }
 
-  return res.status(404).json({ message: 'No reviews found for this book.' });
+  return res.status(404).json({
+    message: 'No reviews found for this book.',
+  });
 });
 
 // Task 6 - Register new user
@@ -108,15 +114,22 @@ general.post('/register', function (req, res) {
   const password = req.body.password;
 
   if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required' });
+    return res.status(400).json({
+      message: 'Username and password are required',
+    });
   }
 
   if (!isValid(username)) {
-    return res.status(409).json({ message: 'User already exists!' });
+    return res.status(409).json({
+      message: 'User already exists!',
+    });
   }
 
   users.push({ username, password });
-  return res.status(200).json({ message: 'User successfully registered. Now you can login' });
+
+  return res.status(200).json({
+    message: 'User successfully registered. Now you can login',
+  });
 });
 
 module.exports.general = general;
